@@ -38,14 +38,16 @@ body {
 
 /* PROGRESS BAR */
 
-.progress-container {
-    width: 100%;
+.fixed-progress {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 220px;
     height: 12px;
     background: #ffd6e0;
     border-radius: 20px;
-    margin-bottom: 20px;
-    position: relative;
     overflow: hidden;
+    z-index: 999;
 }
 
 .progress-bar {
@@ -62,7 +64,7 @@ body {
     top: -18px;
     left: 0%;
     transform: translateX(-50%);
-    font-size: 20px;
+    font-size: 18px;
     animation: heartbeat 1s infinite;
     transition: 0.5s;
 }
@@ -124,10 +126,11 @@ button.selected {
 
 <div class="card" id="mainCard">
 
-<div class="progress-container">
+<div class="fixed-progress">
     <div class="progress-bar" id="progressBar"></div>
     <div class="progress-heart" id="progressHeart">❤️</div>
 </div>
+
 
 <h1>Merve ❤️</h1>
 <p>22 Ağustos 2025'ten beri hayatımın en güzel hikayesini yazıyoruz.</p>
@@ -240,3 +243,4 @@ function finalScreen(){
 
 </body>
 </html>
+
