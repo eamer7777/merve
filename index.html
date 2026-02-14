@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merve ❤️</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px 20px;
+        border-radius: 25px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        max-width: 400px;
+        width: 100%;
+        animation: fadeIn 1.5s ease;
+        position: relative;
+        z-index: 10;
+    }
+
+    h1 {
+        color: #ff2e63;
+        margin-bottom: 15px;
+        font-size: 26px;
+    }
+
+    p {
+        font-size: 16px;
+        color: #444;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .counter {
+        font-weight: bold;
+        color: #ff2e63;
+        margin-bottom: 15px;
+    }
+
+    button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        background: #ff2e63;
+        color: white;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        background: #ff0055;
+    }
+
+    .heart {
+        position: absolute;
+        color: #fff;
+        font-size: 20px;
+        animation: float 6s linear infinite;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes float {
+        from {transform: translateY(100vh); opacity: 1;}
+        to {transform: translateY(-10vh); opacity: 0;}
+    }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Merve ❤️</h1>
+    <p>
+        22 Ağustos 2025'ten beri hayatımın en güzel hikayesini yazıyoruz.  
+        İyi ki tanıştık, iyi ki varsın.
+    </p>
+
+    <div class="counter" id="loveCounter"></div>
+
+    <button onclick="showMessage()">Sürprizi Aç 🎁</button>
+</div>
+
+<!-- Arka plan müziği -->
+<audio id="bgMusic" loop>
+    <source src="wanna-be-yours.mp3" type="audio/mpeg">
+</audio>
+
+<<script>
+    const startDate = new Date("2025-08-22");
+    const music = document.getElementById("bgMusic");
+    let musicStarted = false;
+
+    function updateCounter() {
+        const now = new Date();
+        const diff = now - startDate;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById("loveCounter").innerText =
+            days + " gündür birlikteyiz ❤️";
+    }
+
+    updateCounter();
+
+    // Ekrana ilk dokunuşta müzik başlar (mobil için)
+    document.addEventListener("click", function() {
+        if (!musicStarted) {
+            music.play().then(() => {
+                musicStarted = true;
+            }).catch(err => {
+                console.log("Müzik başlatılamadı:", err);
+            });
+        }
+    });
+
+    function showMessage() {
+        alert("Seni her şeyden çok seviyorum Merve ❤️ Sen benim her şeyimsin.");
+    }
+
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 300);
+</script>
+
+
+</body>
+</html>
