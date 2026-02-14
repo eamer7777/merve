@@ -6,97 +6,133 @@
 <title>Merve ❤️</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-body{
-    height:100vh;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    overflow:hidden;
-    padding:20px;
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #ff6f91, #ff8fab);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 20px;
 }
 
-.card{
-    background:rgba(255,255,255,0.95);
-    padding:30px 20px;
-    border-radius:25px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.2);
-    max-width:400px;
-    width:100%;
-    animation:fadeIn 0.8s ease;
+/* CARD */
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px 20px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    max-width: 400px;
+    width: 100%;
+    position: relative;
 }
 
-h1,h2{
-    color:#ff2e63;
-    margin-bottom:15px;
+/* PROGRESS BAR */
+
+.progress-container {
+    width: 100%;
+    height: 12px;
+    background: #ffd6e0;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
 }
 
-p{
-    font-size:16px;
-    color:#444;
-    margin-bottom:15px;
-    line-height:1.5;
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff2e63, #ff8fab);
+    border-radius: 20px;
+    transition: 0.5s;
+    box-shadow: 0 0 15px #ff4d88;
 }
 
-/* GRADIENT BUTON */
-button{
-    padding:14px 28px;
-    border:none;
-    border-radius:40px;
-    font-size:15px;
-    cursor:pointer;
-    margin:10px auto;
-    display:block;
-    color:white;
-    background:linear-gradient(135deg,#ff4e8a,#ff80ab);
-    box-shadow:0 8px 20px rgba(255,0,90,0.4);
-    transition:all 0.3s ease;
+.progress-heart {
+    position: absolute;
+    top: -18px;
+    left: 0%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    animation: heartbeat 1s infinite;
+    transition: 0.5s;
 }
 
-button:hover{
-    transform:scale(1.05);
+@keyframes heartbeat {
+    0%,100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.3); }
 }
 
-/* SEÇİLİNCE PARLAMA */
-.selected{
-    box-shadow:0 0 20px #ff2e63,
-               0 0 40px #ff4e8a;
-    transform:scale(1.08);
+.glow {
+    animation: glow 1.5s infinite alternate;
 }
 
-/* Animasyonlar */
-.fadeOut{
-    animation:fadeOut 0.6s forwards;
+@keyframes glow {
+    from { box-shadow: 0 0 5px #ff2e63; }
+    to { box-shadow: 0 0 25px #ff2e63; }
 }
 
-.fadeIn{
-    animation:fadeIn 0.6s forwards;
+/* BUTTONS */
+
+button {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #ff2e63, #ff8fab);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 100%;
+    transition: 0.3s;
 }
 
-@keyframes fadeOut{
-    to{opacity:0;transform:scale(0.9);}
+button:hover {
+    transform: scale(1.05);
 }
 
-@keyframes fadeIn{
-    from{opacity:0;transform:scale(0.95);}
-    to{opacity:1;transform:scale(1);}
+button.selected {
+    box-shadow: 0 0 25px #ff2e63;
+    transform: scale(1.08);
+}
+
+/* FADE */
+
+.fadeOut { animation: fadeOut 0.6s forwards; }
+.fadeIn { animation: fadeIn 0.6s forwards; }
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: scale(0.9); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 </style>
 </head>
+
 <body>
 
 <div class="card" id="mainCard">
-    <h1>Merve ❤️</h1>
-    <p>Hazır mısın küçük sürprize?</p>
-    <button onclick="startSurprise()">Sürprizi Aç 🎁</button>
+
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="progress-heart" id="progressHeart">❤️</div>
+</div>
+
+<h1>Merve ❤️</h1>
+<p>22 Ağustos 2025'ten beri hayatımın en güzel hikayesini yazıyoruz.</p>
+<button onclick="startSurprise()">Sürprizi Aç 🎁</button>
+
 </div>
 
 <audio id="bgMusic" loop>
@@ -104,99 +140,101 @@ button:hover{
 </audio>
 
 <script>
-const music=document.getElementById("bgMusic");
-let musicStarted=false;
+const music = document.getElementById("bgMusic");
+let musicStarted = false;
+let step = 0;
 
-function startSurprise(){
-    if(!musicStarted){
-        music.play();
-        musicStarted=true;
-    }
+function updateProgress(percent) {
+    const bar = document.getElementById("progressBar");
+    const heart = document.getElementById("progressHeart");
 
-    changeCard(`
-        <h1>💖</h1>
-        <p><b>Seninle bazı anları tekrar etmek istiyorum...</b></p>
-        <button onclick="firstQuestion()">Devam et</button>
-    `);
+    bar.style.width = percent + "%";
+    heart.style.left = percent + "%";
 }
 
-function firstQuestion(){
-    changeCard(`
+function startSurprise() {
+    if (!musicStarted) {
+        music.play().catch(()=>{});
+        musicStarted = true;
+    }
+    showMessage();
+}
+
+function showMessage() {
+    const card = document.getElementById("mainCard");
+    card.innerHTML = `
+        <div class="progress-container">
+            <div class="progress-bar glow" id="progressBar"></div>
+            <div class="progress-heart" id="progressHeart">❤️</div>
+        </div>
+        <p><b>Seninle bazı anları tekrar etmek istiyorum...</b></p>
+        <button onclick="question1()">Devam et</button>
+    `;
+    updateProgress(0);
+}
+
+function question1() {
+    step = 1;
+    const card = document.getElementById("mainCard");
+    card.innerHTML = `
+        <div class="progress-container">
+            <div class="progress-bar glow" id="progressBar"></div>
+            <div class="progress-heart" id="progressHeart">❤️</div>
+        </div>
         <h2>Spotify evimiz? 🎵</h2>
-
-        <button onclick="answer1(this,1)">
-        🕋 Kabe
-        </button>
-
-        <button onclick="answer1(this,2)">
-        <img src="https://flagcdn.com/w20/tr.png" style="vertical-align:middle;"> Anıtkabir
-        </button>
-    `);
+        <button onclick="answer1(this,1)">🕋 Kabe</button>
+        <button onclick="answer1(this,2)">🇹🇷 Anıtkabir</button>
+    `;
+    updateProgress(25);
 }
 
 function answer1(btn,choice){
     btn.classList.add("selected");
-
-    setTimeout(()=>{
-        if(choice===2){
-            changeCard(`
-                <h2>💖</h2>
-                <p><b>ZEKİ OLDUĞUNU BİLİYODUM SEVGİLİM 😌</b></p>
-                <button onclick="secondQuestion()">Devam edelim</button>
-            `);
-        }else{
-            changeCard(`
-                <h2>😏</h2>
-                <p>Hmm… bir daha düşünelim mi?</p>
-                <button onclick="firstQuestion()">Tekrar dene</button>
-            `);
-        }
-    },500);
+    if(choice===2){
+        setTimeout(()=>{
+            updateProgress(50);
+            question2();
+        },800);
+    }
 }
 
-function secondQuestion(){
-    changeCard(`
-        <h2>Tanışma sebebimiz? 💬</h2>
-
+function question2(){
+    const card=document.getElementById("mainCard");
+    card.innerHTML=`
+        <div class="progress-container">
+            <div class="progress-bar glow" id="progressBar"></div>
+            <div class="progress-heart" id="progressHeart">❤️</div>
+        </div>
+        <h2>Tanışma sebebimiz?</h2>
         <button onclick="answer2(this,1)">
-        🎮 Discord
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="18" style="vertical-align:middle; margin-right:6px;">
+            Discord
         </button>
-
-        <button onclick="answer2(this,2)">
-        👩‍❤️‍👨 Couple PP
-        </button>
-    `);
+        <button onclick="answer2(this,2)">👩‍❤️‍👨 Couple PP</button>
+    `;
+    updateProgress(50);
 }
 
 function answer2(btn,choice){
     btn.classList.add("selected");
-
-    setTimeout(()=>{
-        if(choice===1){
-            changeCard(`
-                <h2>🥰</h2>
-                <p>İyi ki o gün Discord vardı...</p>
-                <p><b>İyi ki sen vardın ❤️</b></p>
-            `);
-        }else{
-            changeCard(`
-                <h2>😅</h2>
-                <p>Couple PP tatlıydı ama hikaye Discord'da başladı 😌</p>
-                <button onclick="secondQuestion()">Tekrar dene</button>
-            `);
-        }
-    },500);
+    if(choice===2){
+        setTimeout(()=>{
+            updateProgress(100);
+            finalScreen();
+        },800);
+    }
 }
 
-function changeCard(content){
+function finalScreen(){
     const card=document.getElementById("mainCard");
-    card.classList.add("fadeOut");
-
-    setTimeout(()=>{
-        card.innerHTML=content;
-        card.classList.remove("fadeOut");
-        card.classList.add("fadeIn");
-    },600);
+    card.innerHTML=`
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-heart" id="progressHeart">❤️</div>
+        </div>
+        <h2>ZEKİ OLDUĞUNU BİLİYODUM SEVGİLİM 💖</h2>
+    `;
+    updateProgress(100);
 }
 </script>
 
