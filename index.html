@@ -31,15 +31,14 @@
         box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         max-width: 400px;
         width: 100%;
-        animation: fadeIn 1.5s ease;
         position: relative;
         z-index: 10;
+        animation: fadeIn 0.8s ease;
     }
 
-    h1 {
+    h1, h2 {
         color: #ff2e63;
         margin-bottom: 15px;
-        font-size: 26px;
     }
 
     p {
@@ -47,12 +46,6 @@
         color: #444;
         margin-bottom: 15px;
         line-height: 1.5;
-    }
-
-    .counter {
-        font-weight: bold;
-        color: #ff2e63;
-        margin-bottom: 15px;
     }
 
     button {
@@ -78,20 +71,35 @@
         animation: float 6s linear infinite;
     }
 
+    /* Fade Animasyonları */
+
+    .fadeOut {
+        animation: fadeOut 0.6s forwards;
+    }
+
+    .fadeIn {
+        animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeOut {
+        to { opacity: 0; transform: scale(0.9); }
+    }
+
     @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(20px);}
-        to {opacity: 1; transform: translateY(0);}
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
     }
 
     @keyframes float {
-        from {transform: translateY(100vh); opacity: 1;}
-        to {transform: translateY(-10vh); opacity: 0;}
+        from { transform: translateY(100vh); opacity: 1; }
+        to { transform: translateY(-10vh); opacity: 0; }
     }
 </style>
+
 </head>
 <body>
 
-<div class="card">
+<div class="card" id="mainCard">
     <h1>Merve ❤️</h1>
     <p>
         22 Ağustos 2025'ten beri hayatımın en güzel hikayesini yazıyoruz.  
@@ -111,79 +119,79 @@
 </audio>
 
 <script>
-const startDate = new Date("2025-08-22");
 const music = document.getElementById("bgMusic");
 let musicStarted = false;
 
-function updateCounter() {
-    const now = new Date();
-    const diff = now - startDate;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("loveCounter").innerText =
-        days + " gündür birlikteyiz ❤️";
-}
-updateCounter();
-
 function startSurprise() {
+
     if (!musicStarted) {
         music.play();
         musicStarted = true;
     }
 
-    document.getElementById("quizArea").innerHTML = `
-        <p style="font-weight:bold; margin-top:15px;">
-        Seninle bazı anları tekrar etmek istiyorum...
-        </p>
-        <button onclick="nextStep()">Devam et 💖</button>
-    `;
+    const mainCard = document.getElementById("mainCard");
+    mainCard.classList.add("fadeOut");
+
+    setTimeout(() => {
+        mainCard.innerHTML = `
+            <h1>💖</h1>
+            <p style="font-weight:bold;">
+            Seninle bazı anları tekrar etmek istiyorum...
+            </p>
+            <button onclick="nextStep()">Devam et</button>
+        `;
+        mainCard.classList.remove("fadeOut");
+        mainCard.classList.add("fadeIn");
+    }, 600);
 }
 
 function nextStep() {
-    document.getElementById("quizArea").innerHTML = `
-        <p style="font-weight:bold; margin-bottom:15px;">
-        Spotify evimiz? 🎵
-        </p>
+    const mainCard = document.getElementById("mainCard");
+    mainCard.classList.add("fadeOut");
 
-        <button onclick="answer(1)" style="display:block; margin:8px auto;">
-        🕋 Kabe
-        </button>
+    setTimeout(() => {
+        mainCard.innerHTML = `
+            <h2>Spotify evimiz? 🎵</h2>
 
-        <button onclick="answer(2)" style="display:block; margin:8px auto;">
-        🇹🇷 Anıtkabir
-        </button>
-    `;
+            <button onclick="answer(1)" style="display:block; margin:10px auto;">
+            🕋 Kabe
+            </button>
+
+            <button onclick="answer(2)" style="display:block; margin:10px auto;">
+            🇹🇷 Anıtkabir
+            </button>
+        `;
+        mainCard.classList.remove("fadeOut");
+        mainCard.classList.add("fadeIn");
+    }, 600);
 }
 
 function answer(choice) {
-    if (choice === 1) {
-        document.getElementById("quizArea").innerHTML = `
-            <p>Doğru cevap mı acaba? 😌❤️</p>
-        `;
-    } else {
-        document.getElementById("quizArea").innerHTML = `
-            <p>Hmm… bir daha düşünelim mi? 😏</p>
-            <button onclick="nextStep()">Tekrar dene</button>
-        `;
-    }
-}
-
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-    document.body.appendChild(heart);
+    const mainCard = document.getElementById("mainCard");
+    mainCard.classList.add("fadeOut");
 
     setTimeout(() => {
-        heart.remove();
-    }, 6000);
-}
+        if (choice === 1) {
+            mainCard.innerHTML = `
+                <h2>😌❤️</h2>
+                <p>Doğru cevap... Çünkü bizim evimiz kalbimizde.</p>
+            `;
+        } else {
+            mainCard.innerHTML = `
+                <h2>😏</h2>
+                <p>Hmm… bir daha düşünelim mi?</p>
+                <button onclick="nextStep()">Tekrar dene</button>
+            `;
+        }
 
-setInterval(createHeart, 300);
+        mainCard.classList.remove("fadeOut");
+        mainCard.classList.add("fadeIn");
+    }, 600);
+}
 </script>
 
 
 </body>
 </html>
+
 
