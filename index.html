@@ -3,235 +3,313 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sevgilim 💖</title>
+<title>Merve ❤️</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#ff6f91;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    overflow:hidden;
-    color:white;
-    text-align:center;
+height:100vh;
+background:linear-gradient(135deg,#ff7eb3,#ff4f81);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
 }
 
-/* ===== GENEL KART ===== */
 .card{
-    background:white;
-    color:black;
-    padding:30px;
-    border-radius:20px;
-    width:90%;
-    max-width:400px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.3);
-    animation:fadeIn 0.6s forwards;
+background:white;
+width:90%;
+max-width:400px;
+padding:30px;
+border-radius:25px;
+box-shadow:0 20px 50px rgba(0,0,0,0.2);
+text-align:center;
+position:relative;
 }
 
-/* ===== BUTON ===== */
-button{
-    margin-top:20px;
-    padding:12px 25px;
-    border:none;
-    border-radius:30px;
-    font-size:16px;
-    background:linear-gradient(45deg,#ff2e63,#ff7aa2);
-    color:white;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 15px #ff2e63;
-}
-
-/* ===== PROGRESS BAR ===== */
-.progress-wrapper{
-    position:absolute;
-    top:40px;
-    width:80%;
-    max-width:400px;
-}
-
-.progress{
-    height:8px;
-    background:#ffd1dc;
-    border-radius:10px;
-    overflow:visible;
-    position:relative;
+/* PROGRESS BAR */
+.progress-container{
+position:fixed;
+top:25px;
+left:50%;
+transform:translateX(-50%);
+width:250px;
+height:10px;
+background:#ffd1dc;
+border-radius:20px;
 }
 
 .progress-bar{
-    height:100%;
-    width:0%;
-    background:#ff2e63;
-    border-radius:10px;
-    transition:width 0.6s;
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#ff4f81,#ff89a6);
+border-radius:20px;
+transition:0.6s;
 }
 
-.heart{
-    position:absolute;
-    top:-15px;
-    right:-15px;
-    font-size:22px;
-    animation:beat 1s infinite;
+.progress-heart{
+position:absolute;
+top:-20px;
+left:0%;
+transform:translateX(-50%);
+font-size:22px;
+animation:beat 1s infinite;
+transition:0.6s;
+}
+
+.gold{
+background:linear-gradient(90deg,#FFD700,#FFC300);
+box-shadow:0 0 25px gold;
 }
 
 @keyframes beat{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.3);}
+0%,100%{transform:translateX(-50%) scale(1);}
+50%{transform:translateX(-50%) scale(1.3);}
 }
 
-/* ===== FOTOĞRAF ANIMASYON ===== */
-.photo{
-    width:100%;
-    border-radius:15px;
-    margin-top:15px;
-    animation:fadeInUp 1s forwards;
+/* BUTTON */
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ff4f81,#ff89a6);
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px;
+transition:0.3s;
 }
 
-@keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
+button:hover{transform:scale(1.05);}
+button.selected{box-shadow:0 0 20px #ff4f81;}
+
+/* MEMORY PHOTOS */
+.memories-wrapper{
+position:relative;
+width:100%;
+height:260px;
+margin-top:20px;
+overflow:hidden;
+border-radius:20px;
 }
 
-@keyframes fadeInUp{
-    from{opacity:0; transform:translateY(40px)}
-    to{opacity:1; transform:translateY(0)}
+.memory-photo{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+transform:scale(1.05);
+transition:0.8s;
+border-radius:20px;
 }
 
-/* ===== ZARF ===== */
+.memory-photo.active{
+opacity:1;
+transform:scale(1);
+}
+
+/* ENVELOPE */
 .envelope{
-    width:120px;
-    height:80px;
-    background:white;
-    position:relative;
-    margin:20px auto;
-    border-radius:8px;
-    cursor:pointer;
-    transition:0.3s;
+width:140px;
+height:90px;
+background:white;
+margin:20px auto;
+position:relative;
+border-radius:10px;
+cursor:pointer;
 }
 
-.envelope:before{
-    content:"";
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:#ffd1dc;
-    clip-path:polygon(0 0,100% 0,50% 50%);
+.envelope-top{
+position:absolute;
+width:100%;
+height:100%;
+background:#ffd1dc;
+clip-path:polygon(0 0,100% 0,50% 50%);
+transition:0.6s;
 }
 
-.shake{
-    animation:shake 0.4s;
-}
-
-@keyframes shake{
-    0%{transform:translateX(0)}
-    25%{transform:translateX(-5px)}
-    50%{transform:translateX(5px)}
-    75%{transform:translateX(-5px)}
-    100%{transform:translateX(0)}
+.envelope.open .envelope-top{
+transform:rotateX(180deg);
 }
 
 .letter{
-    background:white;
-    color:black;
-    padding:20px;
-    border-radius:15px;
-    animation:fadeIn 1s forwards;
+margin-top:20px;
+background:white;
+padding:20px;
+border-radius:15px;
+animation:fadeIn 1s forwards;
 }
 
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+.shake{
+animation:shake 0.4s;
+}
+
+@keyframes shake{
+0%{transform:translateX(0)}
+25%{transform:translateX(-5px)}
+50%{transform:translateX(5px)}
+75%{transform:translateX(-5px)}
+100%{transform:translateX(0)}
+}
 </style>
 </head>
 
 <body>
 
-<audio id="music" src="wanna-be-yours.mp3" loop></audio>
-
-<div class="progress-wrapper">
-    <div class="progress">
-        <div class="progress-bar" id="bar"></div>
-        <div class="heart">💖</div>
-    </div>
+<div class="progress-container">
+<div class="progress-bar" id="bar"></div>
+<div class="progress-heart" id="heart">❤️</div>
 </div>
 
-<div id="content" class="card">
-    <h2>Seninle bazı anları tekrar etmek istiyorum 💕</h2>
-    <button onclick="start()">Devam Et</button>
+<audio id="music" src="muzik.mp3" loop></audio>
+
+<div class="card" id="mainCard">
+<h2>Merve ❤️</h2>
+<p>22 Ağustos 2025'ten beri hayatımın en güzel hikayesini yazıyoruz.</p>
+<button onclick="start()">Sürprizi Aç 🎁</button>
 </div>
 
 <script>
-
-let step=0;
-let daysTogether = Math.floor((new Date() - new Date("2024-01-01")) / (1000*60*60*24));
+let progress=0;
 let envelopeClicks=0;
+let photoIndex=0;
+
+const bar=document.getElementById("bar");
+const heart=document.getElementById("heart");
+
+function updateProgress(val){
+progress=val;
+bar.style.width=progress+"%";
+heart.style.left=progress+"%";
+if(progress==100){bar.classList.add("gold");}
+}
 
 function start(){
-    document.getElementById("music").play();
-    next();
+document.getElementById("music").play();
+question1();
+updateProgress(20);
 }
 
-function next(){
-    step++;
-    updateBar();
-
-    const content=document.getElementById("content");
-
-    if(step==1){
-        content.innerHTML=`
-        <h2>${daysTogether} gündür birlikteyiz 💖</h2>
-        <button onclick="next()">Devam</button>
-        `;
-    }
-
-    else if(step==2){
-        content.innerHTML=`
-        <h2>Bazı anılarımız 💕</h2>
-        <img src="foto1.jpg" class="photo">
-        `;
-        setTimeout(()=>{content.innerHTML+=`<img src="foto2.jpg" class="photo">`},2000);
-        setTimeout(()=>{content.innerHTML+=`<img src="foto3.jpg" class="photo">`},4000);
-        setTimeout(()=>{content.innerHTML+=`<button onclick="next()">Devam</button>`},6000);
-    }
-
-    else if(step==3){
-        content.innerHTML=`
-        <div class="envelope" id="env" onclick="openEnvelope()"></div>
-        <p>Zarfı açmak için tıkla 💌</p>
-        `;
-    }
-
+function question1(){
+mainCard.innerHTML=`
+<h3>Spotify evimiz? 🎵</h3>
+<button onclick="answer1(this,false)">🕋 Kabe</button>
+<button onclick="answer1(this,true)">🇹🇷 Anıtkabir</button>
+`;
 }
 
-function updateBar(){
-    document.getElementById("bar").style.width=(step*33)+"%";
+function answer1(btn,correct){
+btn.classList.add("selected");
+if(correct){
+setTimeout(()=>{
+updateProgress(40);
+question2();
+},800);
+}
+}
+
+function question2(){
+mainCard.innerHTML=`
+<h3>Tanışma sebebimiz?</h3>
+<button onclick="answer2(this,false)">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="18" style="vertical-align:middle;margin-right:6px;">
+Discord
+</button>
+<button onclick="answer2(this,true)">👩‍❤️‍👨 Couple PP</button>
+`;
+}
+
+function answer2(btn,correct){
+btn.classList.add("selected");
+if(correct){
+setTimeout(()=>{
+updateProgress(60);
+recap();
+},800);
+}
+}
+
+function recap(){
+const startDate=new Date("2025-08-22");
+const now=new Date();
+const diff=now-startDate;
+const days=Math.floor(diff/(1000*60*60*24));
+
+mainCard.innerHTML=`
+<h2>${days} gündür birlikteyiz 💖</h2>
+<button onclick="memories()">Devam</button>
+`;
+}
+
+function memories(){
+updateProgress(80);
+mainCard.innerHTML=`
+<h3>Bazı anılarımız 💕</h3>
+<div class="memories-wrapper">
+<img src="foto1.jpg" class="memory-photo" id="p0">
+<img src="foto2.jpg" class="memory-photo" id="p1">
+<img src="foto3.jpg" class="memory-photo" id="p2">
+</div>
+`;
+
+const photos=document.querySelectorAll(".memory-photo");
+
+function nextPhoto(){
+if(photoIndex>0){
+photos[photoIndex-1].classList.remove("active");
+}
+if(photoIndex<photos.length){
+photos[photoIndex].classList.add("active");
+photoIndex++;
+setTimeout(nextPhoto,2500);
+}else{
+setTimeout(showEnvelope,2000);
+}
+}
+
+nextPhoto();
+}
+
+function showEnvelope(){
+mainCard.innerHTML=`
+<div class="envelope" id="env" onclick="openEnvelope()">
+<div class="envelope-top"></div>
+</div>
+<p>Zarfı açmak için tıkla 💌</p>
+`;
 }
 
 function openEnvelope(){
-    envelopeClicks++;
-    const env=document.getElementById("env");
+const env=document.getElementById("env");
+envelopeClicks++;
 
-    if(envelopeClicks<3){
-        env.classList.add("shake");
-        setTimeout(()=>env.classList.remove("shake"),400);
-    }else{
-        document.getElementById("content").innerHTML=`
-        <div class="letter">
-        Hayatımın en güzel tesadüfü sensin.  
-        Seninle geçen her günüm, kalbimin en güzel melodisi gibi.  
-        İyi ki varsın. İyi ki benimlesin. 💖  
-        Sonsuza kadar sen.
-        </div>
-        `;
-        document.getElementById("bar").style.width="100%";
-    }
+if(envelopeClicks<3){
+env.classList.add("shake");
+setTimeout(()=>env.classList.remove("shake"),400);
+}else{
+env.classList.add("open");
+setTimeout(()=>{
+mainCard.innerHTML=`
+<div class="letter">
+Hayatımın en güzel tesadüfü sensin.<br><br>
+Seninle geçen her günüm kalbimin en güzel melodisi gibi.<br><br>
+İyi ki varsın. İyi ki benimlesin.<br><br>
+Sonsuza kadar sen. 💖
+</div>
+`;
+updateProgress(100);
+},600);
 }
-
+}
 </script>
 
 </body>
 </html>
+
