@@ -68,10 +68,15 @@ border-radius:10px;
 transition:0.6s;
 }
 
+.progress-bar.gold{
+background:gold;
+box-shadow:0 0 15px gold, 0 0 30px gold;
+}
+
 .progress-heart{
 position:absolute;
-top:-18px;
-left:0%;
+top:-16px;
+transform:translateX(-50%);
 transition:0.6s;
 animation:pulse 1s infinite;
 }
@@ -196,6 +201,18 @@ z-index:5;
 transform:translate(-50%,-50%) scale(1);
 }
 
+.letter.shake{
+animation:letterShake 0.5s;
+}
+
+@keyframes letterShake{
+0%{transform:translate(-50%,-50%) rotate(0deg) scale(1)}
+25%{transform:translate(-50%,-50%) rotate(-2deg) scale(1.02)}
+50%{transform:translate(-50%,-50%) rotate(2deg) scale(1.02)}
+75%{transform:translate(-50%,-50%) rotate(-2deg) scale(1.02)}
+100%{transform:translate(-50%,-50%) rotate(0deg) scale(1)}
+}
+
 /* HEART RAIN */
 
 .falling-heart{
@@ -236,9 +253,11 @@ const card=document.getElementById("mainCard");
 const music=document.getElementById("music");
 
 function setProgress(percent){
+let goldClass = percent === 100 ? "gold" : "";
+
 return `
 <div class="progress-wrapper">
-<div class="progress-bar" style="width:${percent}%"></div>
+<div class="progress-bar ${goldClass}" style="width:${percent}%"></div>
 <div class="progress-heart" style="left:${percent}%">❤️</div>
 </div>`;
 }
@@ -339,36 +358,55 @@ Sonsuza kadar. 💖
 }
 
 let clickCount=0;
+let heartInterval;
 
 function openEnvelope(){
 const env=document.getElementById("env");
 const letter=document.getElementById("letter");
+
 clickCount++;
 
+if(clickCount < 3){
 env.classList.add("shake");
+setTimeout(()=>env.classList.remove("shake"),300);
+}
 
 if(clickCount>=3){
 env.classList.add("open");
 letter.classList.add("show");
-releaseHearts();
+
+startInfiniteHearts();
+
+letter.onclick = function(){
+letter.classList.add("shake");
+setTimeout(()=>letter.classList.remove("shake"),500);
+};
 }
 }
+
 
 /* HEARTS */
 
-function releaseHearts(){
-for(let i=0;i<30;i++){
+function startInfiniteHearts(){
+if(heartInterval) return;
+
+heartInterval = setInterval(()=>{
 const heart=document.createElement("div");
 heart.classList.add("falling-heart");
 heart.innerHTML="💖";
+
 heart.style.left=Math.random()*100+"vw";
 heart.style.animationDuration=(3+Math.random()*2)+"s";
 heart.style.fontSize=(16+Math.random()*20)+"px";
+
 document.body.appendChild(heart);
+
 setTimeout(()=>heart.remove(),5000);
+},300);
 }
-}
+
 </script>
 
 </body>
 </html>
+
