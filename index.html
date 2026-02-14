@@ -6,174 +6,199 @@
 <title>Merve ❤️</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
 
-body {
-    height: 100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-    padding: 20px;
+body{
+    height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+    padding:20px;
 }
 
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px 20px;
-    border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    max-width: 400px;
-    width: 100%;
-    position: relative;
-    z-index: 10;
-    animation: fadeIn 0.8s ease;
+.card{
+    background:rgba(255,255,255,0.95);
+    padding:30px 20px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    max-width:400px;
+    width:100%;
+    animation:fadeIn 0.8s ease;
 }
 
-h1, h2 {
-    color: #ff2e63;
-    margin-bottom: 15px;
+h1,h2{
+    color:#ff2e63;
+    margin-bottom:15px;
 }
 
-p {
-    font-size: 16px;
-    color: #444;
-    margin-bottom: 15px;
-    line-height: 1.5;
+p{
+    font-size:16px;
+    color:#444;
+    margin-bottom:15px;
+    line-height:1.5;
 }
 
-button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 25px;
-    background: #ff2e63;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.3s;
+/* GRADIENT BUTON */
+button{
+    padding:14px 28px;
+    border:none;
+    border-radius:40px;
+    font-size:15px;
+    cursor:pointer;
+    margin:10px auto;
+    display:block;
+    color:white;
+    background:linear-gradient(135deg,#ff4e8a,#ff80ab);
+    box-shadow:0 8px 20px rgba(255,0,90,0.4);
+    transition:all 0.3s ease;
 }
 
-button:hover {
-    transform: scale(1.05);
-    background: #ff0055;
+button:hover{
+    transform:scale(1.05);
 }
 
-.fadeOut {
-    animation: fadeOut 0.6s forwards;
+/* SEÇİLİNCE PARLAMA */
+.selected{
+    box-shadow:0 0 20px #ff2e63,
+               0 0 40px #ff4e8a;
+    transform:scale(1.08);
 }
 
-.fadeIn {
-    animation: fadeIn 0.6s forwards;
+/* Animasyonlar */
+.fadeOut{
+    animation:fadeOut 0.6s forwards;
 }
 
-@keyframes fadeOut {
-    to { opacity: 0; transform: scale(0.9); }
+.fadeIn{
+    animation:fadeIn 0.6s forwards;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+@keyframes fadeOut{
+    to{opacity:0;transform:scale(0.9);}
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:scale(0.95);}
+    to{opacity:1;transform:scale(1);}
 }
 </style>
 </head>
-
 <body>
 
-<!-- 🎵 Müzik card dışında -->
+<div class="card" id="mainCard">
+    <h1>Merve ❤️</h1>
+    <p>Hazır mısın küçük sürprize?</p>
+    <button onclick="startSurprise()">Sürprizi Aç 🎁</button>
+</div>
+
 <audio id="bgMusic" loop>
     <source src="wanna-be-yours.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card" id="mainCard">
-    <h1>Merve ❤️</h1>
-    <p>
-        22 Ağustos 2025'ten beri hayatımın en güzel hikayesini yazıyoruz.  
-        İyi ki tanıştık, iyi ki varsın.
-    </p>
-    <button onclick="startSurprise()">Sürprizi Aç 🎁</button>
-</div>
-
 <script>
-const music = document.getElementById("bgMusic");
-let musicStarted = false;
+const music=document.getElementById("bgMusic");
+let musicStarted=false;
 
-function startSurprise() {
-
-    if (!musicStarted) {
+function startSurprise(){
+    if(!musicStarted){
         music.play();
-        musicStarted = true;
+        musicStarted=true;
     }
 
-    const card = document.getElementById("mainCard");
-    card.classList.add("fadeOut");
-
-    setTimeout(() => {
-        card.innerHTML = `
-            <h1>💖</h1>
-            <p style="font-weight:bold;">
-            Seninle bazı anları tekrar etmek istiyorum...
-            </p>
-            <button onclick="nextStep()">Devam et</button>
-        `;
-        card.classList.remove("fadeOut");
-        card.classList.add("fadeIn");
-    }, 600);
+    changeCard(`
+        <h1>💖</h1>
+        <p><b>Seninle bazı anları tekrar etmek istiyorum...</b></p>
+        <button onclick="firstQuestion()">Devam et</button>
+    `);
 }
 
-function nextStep() {
-    const card = document.getElementById("mainCard");
-    card.classList.add("fadeOut");
+function firstQuestion(){
+    changeCard(`
+        <h2>Spotify evimiz? 🎵</h2>
 
-    setTimeout(() => {
-        card.innerHTML = `
-            <h2>Spotify evimiz? 🎵</h2>
+        <button onclick="answer1(this,1)">
+        🕋 Kabe
+        </button>
 
-            <button onclick="answer(1)" style="display:block; margin:10px auto;">
-            🕋 Kabe
-            </button>
-
-            <button onclick="answer(2)" style="display:block; margin:10px auto;">
-            <img src="https://flagcdn.com/w20/tr.png" style="vertical-align:middle;"> Anıtkabir
-            </button>
-        `;
-        card.classList.remove("fadeOut");
-        card.classList.add("fadeIn");
-    }, 600);
+        <button onclick="answer1(this,2)">
+        <img src="https://flagcdn.com/w20/tr.png" style="vertical-align:middle;"> Anıtkabir
+        </button>
+    `);
 }
 
-function answer(choice) {
-    const card = document.getElementById("mainCard");
-    card.classList.add("fadeOut");
+function answer1(btn,choice){
+    btn.classList.add("selected");
 
-    setTimeout(() => {
-        if (choice === 1) {
-            card.innerHTML = `
-                <h2>😌❤️</h2>
-                <p>
-                Doğru cevap...  
-                Çünkü bizim evimiz kalbimizde.
-                </p>
-            `;
-        } else {
-            card.innerHTML = `
+    setTimeout(()=>{
+        if(choice===2){
+            changeCard(`
+                <h2>💖</h2>
+                <p><b>ZEKİ OLDUĞUNU BİLİYODUM SEVGİLİM 😌</b></p>
+                <button onclick="secondQuestion()">Devam edelim</button>
+            `);
+        }else{
+            changeCard(`
                 <h2>😏</h2>
                 <p>Hmm… bir daha düşünelim mi?</p>
-                <button onclick="nextStep()">Tekrar dene</button>
-            `;
+                <button onclick="firstQuestion()">Tekrar dene</button>
+            `);
         }
+    },500);
+}
 
+function secondQuestion(){
+    changeCard(`
+        <h2>Tanışma sebebimiz? 💬</h2>
+
+        <button onclick="answer2(this,1)">
+        🎮 Discord
+        </button>
+
+        <button onclick="answer2(this,2)">
+        👩‍❤️‍👨 Couple PP
+        </button>
+    `);
+}
+
+function answer2(btn,choice){
+    btn.classList.add("selected");
+
+    setTimeout(()=>{
+        if(choice===1){
+            changeCard(`
+                <h2>🥰</h2>
+                <p>İyi ki o gün Discord vardı...</p>
+                <p><b>İyi ki sen vardın ❤️</b></p>
+            `);
+        }else{
+            changeCard(`
+                <h2>😅</h2>
+                <p>Couple PP tatlıydı ama hikaye Discord'da başladı 😌</p>
+                <button onclick="secondQuestion()">Tekrar dene</button>
+            `);
+        }
+    },500);
+}
+
+function changeCard(content){
+    const card=document.getElementById("mainCard");
+    card.classList.add("fadeOut");
+
+    setTimeout(()=>{
+        card.innerHTML=content;
         card.classList.remove("fadeOut");
         card.classList.add("fadeIn");
-    }, 600);
+    },600);
 }
 </script>
 
 </body>
 </html>
-
