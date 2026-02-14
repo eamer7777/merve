@@ -100,60 +100,90 @@
 
     <div class="counter" id="loveCounter"></div>
 
-    <button onclick="showMessage()">Sürprizi Aç 🎁</button>
-</div>
+<button onclick="startSurprise()">Sürprizi Aç 🎁</button>
+
+<div id="quizArea" style="margin-top:20px;"></div>
+
 
 <!-- Arka plan müziği -->
 <audio id="bgMusic" loop>
     <source src="wanna-be-yours.mp3" type="audio/mpeg">
 </audio>
 
-<<script>
-    const startDate = new Date("2025-08-22");
-    const music = document.getElementById("bgMusic");
-    let musicStarted = false;
+<script>
+const startDate = new Date("2025-08-22");
+const music = document.getElementById("bgMusic");
+let musicStarted = false;
 
-    function updateCounter() {
-        const now = new Date();
-        const diff = now - startDate;
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById("loveCounter").innerText =
-            days + " gündür birlikteyiz ❤️";
+function updateCounter() {
+    const now = new Date();
+    const diff = now - startDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("loveCounter").innerText =
+        days + " gündür birlikteyiz ❤️";
+}
+updateCounter();
+
+function startSurprise() {
+    if (!musicStarted) {
+        music.play();
+        musicStarted = true;
     }
 
-    updateCounter();
+    document.getElementById("quizArea").innerHTML = `
+        <p style="font-weight:bold; margin-top:15px;">
+        Seninle bazı anları tekrar etmek istiyorum...
+        </p>
+        <button onclick="nextStep()">Devam et 💖</button>
+    `;
+}
 
-    // Ekrana ilk dokunuşta müzik başlar (mobil için)
-    document.addEventListener("click", function() {
-        if (!musicStarted) {
-            music.play().then(() => {
-                musicStarted = true;
-            }).catch(err => {
-                console.log("Müzik başlatılamadı:", err);
-            });
-        }
-    });
+function nextStep() {
+    document.getElementById("quizArea").innerHTML = `
+        <p style="font-weight:bold; margin-bottom:15px;">
+        Spotify evimiz? 🎵
+        </p>
 
-    function showMessage() {
-        alert("Seni her şeyden çok seviyorum Merve ❤️ Sen benim her şeyimsin.");
+        <button onclick="answer(1)" style="display:block; margin:8px auto;">
+        🕋 Kabe
+        </button>
+
+        <button onclick="answer(2)" style="display:block; margin:8px auto;">
+        🇹🇷 Anıtkabir
+        </button>
+    `;
+}
+
+function answer(choice) {
+    if (choice === 1) {
+        document.getElementById("quizArea").innerHTML = `
+            <p>Doğru cevap mı acaba? 😌❤️</p>
+        `;
+    } else {
+        document.getElementById("quizArea").innerHTML = `
+            <p>Hmm… bir daha düşünelim mi? 😏</p>
+            <button onclick="nextStep()">Tekrar dene</button>
+        `;
     }
+}
 
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-        document.body.appendChild(heart);
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
 
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
-    }
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
 
-    setInterval(createHeart, 300);
+setInterval(createHeart, 300);
 </script>
 
 
 </body>
 </html>
+
