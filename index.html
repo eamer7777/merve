@@ -9,227 +9,224 @@
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
-height:100vh;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
+    height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
 }
 
 .card{
-background:white;
-padding:30px 20px;
-border-radius:25px;
-box-shadow:0 15px 40px rgba(0,0,0,0.2);
-max-width:420px;
-width:100%;
-text-align:center;
-position:relative;
-animation:fadeIn 0.6s ease;
+    background:white;
+    padding:30px 20px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    max-width:420px;
+    width:90%;
+    text-align:center;
+    position:relative;
+    animation:fadeIn 0.6s ease;
 }
 
 @keyframes fadeIn{
-from{opacity:0;transform:scale(0.95)}
-to{opacity:1;transform:scale(1)}
+    from{opacity:0;transform:scale(0.95)}
+    to{opacity:1;transform:scale(1)}
 }
 
 .fadeOut{
-animation:fadeOut 0.6s forwards;
+    animation:fadeOut 0.6s forwards;
 }
 
 @keyframes fadeOut{
-to{opacity:0;transform:scale(0.9)}
+    to{opacity:0;transform:scale(0.9)}
 }
 
-/* PROGRESS */
-
+/* PROGRESS BAR */
 .progress-wrapper{
-width:100%;
-height:10px;
-background:#ffd1dc;
-border-radius:10px;
-margin-bottom:20px;
-position:relative;
+    width:100%;
+    height:10px;
+    background:#ffd1dc;
+    border-radius:10px;
+    margin-bottom:20px;
+    position:relative;
 }
 
 .progress-bar{
-height:100%;
-width:0%;
-background:#ff2e63;
-border-radius:10px;
-transition:0.6s;
+    height:100%;
+    width:0%;
+    background:#ff2e63;
+    border-radius:10px;
+    transition:0.6s;
 }
 
 .progress-bar.gold{
-background:gold;
-box-shadow:0 0 15px gold, 0 0 30px gold;
+    background:gold;
+    box-shadow:0 0 15px gold, 0 0 30px gold;
 }
 
 .progress-heart{
-position:absolute;
-top:-16px;
-transform:translateX(-50%);
-transition:0.6s;
-animation:pulse 1s infinite;
+    position:absolute;
+    top:-16px;
+    transform:translateX(-50%);
+    transition:0.6s;
+    animation:pulse 1s infinite;
 }
 
 @keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.2)}
-100%{transform:scale(1)}
+    0%{transform:scale(1)}
+    50%{transform:scale(1.2)}
+    100%{transform:scale(1)}
 }
 
-/* BUTTON */
-
+/* BUTTONS */
 button{
-padding:12px 25px;
-border:none;
-border-radius:25px;
-background:#ff2e63;
-color:white;
-font-size:15px;
-cursor:pointer;
-transition:0.3s;
-margin:10px auto;
-display:block;
-width:80%;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#ff2e63;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+    margin:10px auto;
+    display:block;
+    width:80%;
 }
 
-button:hover{
-transform:scale(1.05);
-}
+button:hover{ transform:scale(1.05); }
 
 button.correct{
-box-shadow:0 0 20px gold;
-transform:scale(1.08);
+    box-shadow:0 0 20px gold;
+    transform:scale(1.08);
 }
 
 /* MEMORIES */
-
 .memories-wrapper{
-margin-top:20px;
-width:100%;
-display:flex;
-justify-content:center;
-align-items:center;
+    margin-top:20px;
+    width:100%;
+    height: 220px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position: relative;
 }
 
 .memory-photo{
-max-width:100%;
-max-height:220px;
-border-radius:20px;
-object-fit:contain;
-opacity:0;
-transition:0.8s;
-position:absolute;
+    max-width:100%;
+    max-height:100%;
+    border-radius:20px;
+    object-fit:cover;
+    opacity:0;
+    transition:0.8s;
+    position:absolute;
 }
 
 .memory-photo.active{
-opacity:1;
-position:relative;
+    opacity:1;
 }
 
-/* ENVELOPE */
-
-.envelope-wrapper{
-margin-top:30px;
-position:relative;
-height:220px;
+/* ENVELOPE & LETTER ANIMATION */
+.envelope-wrapper {
+    margin-top: 50px;
+    position: relative;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.envelope{
-width:180px;
-height:120px;
-background:#ff4f81;
-border-radius:10px;
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-cursor:pointer;
-transition:0.5s;
+.envelope {
+    width: 180px;
+    height: 120px;
+    background: #ff4f81;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.4s ease;
 }
 
-.envelope::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:60px;
-background:#ff6f9c;
-clip-path:polygon(0 0,100% 0,50% 100%);
-transition:0.6s;
-transform-origin:top;
+/* Zarf Kapağı */
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #ff6f9c;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: transform 0.6s ease;
+    transform-origin: top;
+    z-index: 12;
 }
 
-.envelope.open::before{
-transform:rotateX(180deg);
+.envelope.open::before {
+    transform: rotateX(180deg);
 }
 
-.envelope.open{
-transform:translateX(-50%) scale(0.7);
-opacity:0.6;
+/* Sallanma Efekti */
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
 }
 
-.letter{
-position:absolute;
-left:50%;
-top:40%;
-transform:translate(-50%,-50%) scale(0);
-width:85%;
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
-font-family:'Dancing Script',cursive;
-font-size:20px;
-line-height:1.8;
-color:#ff2e63;
-transition:0.8s;
-z-index:5;
+.envelope.shake {
+    animation: shake 0.3s ease-in-out;
 }
 
-.letter.show{
-transform:translate(-50%,-50%) scale(1);
+/* Mektup Kağıdı */
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    width: 160px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-family: 'Dancing Script', cursive;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #ff2e63;
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+    text-align: center;
 }
 
-.letter.shake{
-animation:letterShake 0.5s;
-}
-
-@keyframes letterShake{
-0%{transform:translate(-50%,-50%) rotate(0deg) scale(1)}
-25%{transform:translate(-50%,-50%) rotate(-2deg) scale(1.02)}
-50%{transform:translate(-50%,-50%) rotate(2deg) scale(1.02)}
-75%{transform:translate(-50%,-50%) rotate(-2deg) scale(1.02)}
-100%{transform:translate(-50%,-50%) rotate(0deg) scale(1)}
+.letter.show {
+    opacity: 1;
+    bottom: 80px; /* Zarftan yukarı çıkar */
+    width: 280px; /* Açılınca genişler */
+    transform: translateX(-50%) scale(1);
+    z-index: 15;
 }
 
 /* HEART RAIN */
-
 .falling-heart{
-position:fixed;
-top:-20px;
-font-size:20px;
-animation:fall 4s linear forwards;
-pointer-events:none;
-z-index:999;
-filter:drop-shadow(0 0 8px #ff4f81);
+    position:fixed;
+    top:-20px;
+    font-size:20px;
+    animation:fall 4s linear forwards;
+    pointer-events:none;
+    z-index:999;
 }
 
 @keyframes fall{
-to{
-transform:translateY(110vh) rotate(360deg);
-opacity:0;
-}
+    to{ transform:translateY(110vh) rotate(360deg); opacity:0; }
 }
 </style>
 </head>
@@ -237,177 +234,144 @@ opacity:0;
 <body>
 
 <div class="card" id="mainCard">
-
-<h1>Merve ❤️</h1>
-<p>22 Ağustos 2025'ten beri hayatımın en güzel hikayesi...</p>
-<button onclick="startSurprise()">Sürprizi Aç 🎁</button>
-
+    <h1>Merve ❤️</h1>
+    <p>22 Ağustos 2025'ten beri hayatımın en güzel hikayesi...</p>
+    <button onclick="startSurprise()">Sürprizi Aç 🎁</button>
 </div>
 
 <audio id="music" loop>
-<source src="wanna-be-yours.mp3" type="audio/mpeg">
+    <source src="wanna-be-yours.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const card=document.getElementById("mainCard");
-const music=document.getElementById("music");
+const card = document.getElementById("mainCard");
+const music = document.getElementById("music");
 
 function setProgress(percent){
-let goldClass = percent === 100 ? "gold" : "";
-
-return `
-<div class="progress-wrapper">
-<div class="progress-bar ${goldClass}" style="width:${percent}%"></div>
-<div class="progress-heart" style="left:${percent}%">❤️</div>
-</div>`;
+    let goldClass = percent === 100 ? "gold" : "";
+    return `
+    <div class="progress-wrapper">
+        <div class="progress-bar ${goldClass}" style="width:${percent}%"></div>
+        <div class="progress-heart" style="left:${percent}%">❤️</div>
+    </div>`;
 }
-
-/* START */
 
 function startSurprise(){
-card.classList.add("fadeOut");
-music.play();
+    card.classList.add("fadeOut");
+    music.play().catch(e => console.log("Müzik otomatik başlatılamadı, etkileşim gerekiyor."));
 
-setTimeout(()=>{
-card.innerHTML=
-setProgress(20)+
-`<h3>Spotify evimiz? 🎵</h3>
-<button onclick="q1(this)">🇹🇷 Anıtkabir</button>
-<button onclick="wrong()">🕋 Kabe</button>`;
-card.classList.remove("fadeOut");
-},600);
+    setTimeout(()=>{
+        card.innerHTML=
+        setProgress(20)+
+        `<h3>Spotify evimiz? 🎵</h3>
+        <button onclick="q1(this)">🇹🇷 Anıtkabir</button>
+        <button onclick="wrong()">🕋 Kabe</button>`;
+        card.classList.remove("fadeOut");
+    },600);
 }
 
-/* QUIZ */
-
 function q1(btn){
-btn.classList.add("correct");
-setTimeout(()=>{
-card.innerHTML=
-setProgress(40)+
-`<h3>ZEKI OLDUGUNU BILIYODUM SEVGILIM 😌</h3>
-<h3>Tanışma sebebimiz?</h3>
-<button onclick="wrong()">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="18"> Discord
-</button>
-<button onclick="q2(this)">👩‍❤️‍👨 Couple pp</button>`;
-},800);
+    btn.classList.add("correct");
+    setTimeout(()=>{
+        card.innerHTML=
+        setProgress(40)+
+        `<h3>ZEKİ OLDUĞUNU BİLİYORDUM SEVGİLİM 😌</h3>
+        <h3>Tanışma sebebimiz?</h3>
+        <button onclick="wrong()">Discord</button>
+        <button onclick="q2(this)">👩‍❤️‍👨 Couple pp</button>`;
+    },800);
 }
 
 function q2(btn){
-btn.classList.add("correct");
-setTimeout(memories,800);
+    btn.classList.add("correct");
+    setTimeout(memories,800);
 }
 
-function wrong(){
-alert("Tekrar dene 😌");
-}
-
-/* MEMORIES */
+function wrong(){ alert("Tekrar dene sevgilim 😌"); }
 
 let index=0;
-
 function memories(){
-card.innerHTML=
-setProgress(70)+
-`<h3>Bazı anılarımız 💕</h3>
-<div class="memories-wrapper">
-<img src="foto1.jpg" class="memory-photo">
-<img src="foto2.jpg" class="memory-photo">
-<img src="foto3.jpg" class="memory-photo">
-</div>`;
+    card.innerHTML=
+    setProgress(70)+
+    `<h3>Bazı anılarımız 💕</h3>
+    <div class="memories-wrapper">
+        <img src="foto1.jpg" class="memory-photo">
+        <img src="foto2.jpg" class="memory-photo">
+        <img src="foto3.jpg" class="memory-photo">
+    </div>`;
 
-const photos=document.querySelectorAll(".memory-photo");
-
-function showNext(){
-photos.forEach(p=>p.classList.remove("active"));
-if(index<photos.length){
-photos[index].classList.add("active");
-index++;
-setTimeout(showNext,2500);
-}else{
-setTimeout(showEnvelope,2000);
+    const photos=document.querySelectorAll(".memory-photo");
+    function showNext(){
+        photos.forEach(p=>p.classList.remove("active"));
+        if(index < photos.length){
+            photos[index].classList.add("active");
+            index++;
+            setTimeout(showNext, 2500);
+        } else {
+            setTimeout(showEnvelope, 1000);
+        }
+    }
+    showNext();
 }
-}
-
-showNext();
-}
-
-/* ENVELOPE */
 
 function showEnvelope(){
-card.innerHTML=
-setProgress(100)+
-`<h3>Son bir şey var... 💌</h3>
-<div class="envelope-wrapper">
-<div class="envelope" id="env" onclick="openEnvelope()"></div>
-<div class="letter" id="letter">
-Merve ❤️<br><br>
-Sen benim en huzurlu yerimsin.
-Seninle gülmek, seninle susmak,
-seninle hayal kurmak...
-Hepsi bir mucize gibi.<br><br>
-İyi ki sen.
-İyi ki biz.
-Sonsuza kadar. 💖
-</div>
-<p style="margin-top:150px;font-size:13px;color:#777">
-(Zarfı açmak için birkaç kez tıkla)
-</p>
-</div>`;
+    card.innerHTML=
+    setProgress(100)+
+    `<h3>Son bir şey var... 💌</h3>
+    <div class="envelope-wrapper">
+        <div class="envelope" id="env" onclick="handleEnvelopeClick()"></div>
+        <div class="letter" id="letter">
+            Merve ❤️<br><br>
+            Sen benim en huzurlu yerimsin.
+            Seninle gülmek, seninle susmak,
+            seninle hayal kurmak...<br><br>
+            İyi ki sen.<br>
+            İyi ki biz.<br>
+            Sonsuza kadar. 💖
+        </div>
+    </div>
+    <p id="hintText" style="margin-top:20px;font-size:13px;color:#777">
+        (Zarfı açmak için 3 kez tıkla)
+    </p>`;
 }
 
-let clickCount=0;
-let heartInterval;
+let clickCount = 0;
+function handleEnvelopeClick() {
+    const env = document.getElementById("env");
+    const letter = document.getElementById("letter");
+    const hintText = document.getElementById("hintText");
 
-function openEnvelope(){
-const env=document.getElementById("env");
-const letter=document.getElementById("letter");
+    clickCount++;
 
-clickCount++;
-
-if(clickCount < 3){
-env.classList.add("shake");
-setTimeout(()=>env.classList.remove("shake"),300);
+    if (clickCount < 3) {
+        // Sallanma efekti ekle ve kaldır
+        env.classList.add("shake");
+        setTimeout(() => env.classList.remove("shake"), 300);
+    } else {
+        // Zarfı aç ve mektubu göster
+        env.classList.add("open");
+        hintText.style.display = "none";
+        
+        setTimeout(() => {
+            letter.classList.add("show");
+            startInfiniteHearts();
+        }, 600);
+    }
 }
-
-if(clickCount>=3){
-env.classList.add("open");
-letter.classList.add("show");
-
-startInfiniteHearts();
-
-letter.onclick = function(){
-letter.classList.add("shake");
-setTimeout(()=>letter.classList.remove("shake"),500);
-};
-}
-}
-
-
-/* HEARTS */
 
 function startInfiniteHearts(){
-if(heartInterval) return;
-
-heartInterval = setInterval(()=>{
-const heart=document.createElement("div");
-heart.classList.add("falling-heart");
-heart.innerHTML="💖";
-
-heart.style.left=Math.random()*100+"vw";
-heart.style.animationDuration=(3+Math.random()*2)+"s";
-heart.style.fontSize=(16+Math.random()*20)+"px";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>heart.remove(),5000);
-},300);
+    setInterval(()=>{
+        const heart=document.createElement("div");
+        heart.classList.add("falling-heart");
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration=(3+Math.random()*2)+"s";
+        heart.style.fontSize=(16+Math.random()*20)+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),5000);
+    },300);
 }
-
 </script>
 
 </body>
 </html>
-
-
