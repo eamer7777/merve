@@ -102,6 +102,11 @@ button.selected{
     box-shadow:0 0 25px #ff2e63;
     transform:scale(1.08);
 }
+    @keyframes fadeInRecap{
+    from{opacity:0;transform:scale(1.05);}
+    to{opacity:1;transform:scale(1);}
+}
+
 </style>
 </head>
 
@@ -203,12 +208,76 @@ function answer2(btn,choice){
 }
 
 function finalScreen(){
+    updateProgress(100);
+
     const card=document.getElementById("mainCard");
     card.innerHTML=`
         <h2>ZEKİ OLDUĞUNU BİLİYODUM SEVGİLİM 💖</h2>
+        <button onclick="showRecap()">Bir şey daha var...</button>
     `;
 }
+function showRecap(){
+    document.body.innerHTML = `
+        <div id="recap" style="
+            height:100vh;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            color:white;
+            font-family:sans-serif;
+            background:linear-gradient(45deg,#1DB954,#191414);
+            animation:fadeInRecap 1s ease;
+        ">
+            <h1 style="font-size:28px;margin-bottom:20px;">
+                Bizim Hikayemiz 🎵
+            </h1>
+
+            <h2 style="font-size:20px;margin-bottom:10px;">
+                22 Ağustos 2025'ten beri
+            </h2>
+
+            <div id="loveTimer" style="
+                font-size:32px;
+                font-weight:bold;
+                margin-top:20px;
+            ">
+            </div>
+
+            <p style="margin-top:20px;font-size:18px;">
+                birlikteyiz 💖
+            </p>
+        </div>
+    `;
+
+    startLoveTimer();
+}
+function startLoveTimer(){
+    const startDate = new Date("2025-08-22T00:00:00");
+
+    function update(){
+        const now = new Date();
+        const diff = now - startDate;
+
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff / (1000*60*60)) % 24);
+        const minutes = Math.floor((diff / (1000*60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("loveTimer").innerHTML =
+            days + " gün " +
+            hours + " saat " +
+            minutes + " dakika " +
+            seconds + " saniye";
+    }
+
+    update();
+    setInterval(update,1000);
+}
+
 </script>
 
 </body>
 </html>
+
