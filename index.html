@@ -3,108 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Merve ❤️</title>
+<title>Sevgilim 💖</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
 body{
-    height:100vh;
-    background:linear-gradient(135deg,#ff6f91,#ff8fab);
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#ff6f91;
     display:flex;
     justify-content:center;
     align-items:center;
+    height:100vh;
+    overflow:hidden;
+    color:white;
     text-align:center;
-    padding:20px;
 }
 
-/* ORTALI PROGRESS BAR */
-
-.fixed-progress{
-    position:fixed;
-    top:30px;
-    left:50%;
-    transform:translateX(-50%);
-    width:260px;
-    height:12px;
-    background:#ffd6e0;
+/* ===== GENEL KART ===== */
+.card{
+    background:white;
+    color:black;
+    padding:30px;
     border-radius:20px;
-    z-index:999;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    animation:fadeIn 0.6s forwards;
+}
+
+/* ===== BUTON ===== */
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    background:linear-gradient(45deg,#ff2e63,#ff7aa2);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 15px #ff2e63;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-wrapper{
+    position:absolute;
+    top:40px;
+    width:80%;
+    max-width:400px;
+}
+
+.progress{
+    height:8px;
+    background:#ffd1dc;
+    border-radius:10px;
+    overflow:visible;
+    position:relative;
 }
 
 .progress-bar{
     height:100%;
     width:0%;
-    background:linear-gradient(90deg,#ff2e63,#ff8fab);
-    border-radius:20px;
-    transition:0.5s;
-    box-shadow:0 0 15px #ff4d88;
+    background:#ff2e63;
+    border-radius:10px;
+    transition:width 0.6s;
 }
 
-.progress-heart{
+.heart{
     position:absolute;
-    top:-22px; /* BARIN DIŞINDA */
-    left:0%;
-    transform:translateX(-50%);
-    font-size:20px;
-    animation:heartbeat 1s infinite;
-    transition:0.5s;
+    top:-15px;
+    right:-15px;
+    font-size:22px;
+    animation:beat 1s infinite;
 }
 
-@keyframes heartbeat{
-    0%,100%{transform:translateX(-50%) scale(1);}
-    50%{transform:translateX(-50%) scale(1.3);}
+@keyframes beat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.3);}
 }
 
-/* ALTIN FINAL EFEKTİ */
-
-.gold{
-    background:linear-gradient(90deg,#FFD700,#FFC300);
-    box-shadow:0 0 25px gold;
-}
-
-/* CARD */
-
-.card{
-    background:rgba(255,255,255,0.95);
-    padding:30px 20px;
-    border-radius:25px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.2);
-    max-width:400px;
+/* ===== FOTOĞRAF ANIMASYON ===== */
+.photo{
     width:100%;
+    border-radius:15px;
+    margin-top:15px;
+    animation:fadeInUp 1s forwards;
 }
 
-/* BUTTON */
+@keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+}
 
-button{
-    padding:14px 25px;
-    border:none;
-    border-radius:40px;
-    background:linear-gradient(90deg,#ff2e63,#ff8fab);
-    color:white;
-    font-size:15px;
+@keyframes fadeInUp{
+    from{opacity:0; transform:translateY(40px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+/* ===== ZARF ===== */
+.envelope{
+    width:120px;
+    height:80px;
+    background:white;
+    position:relative;
+    margin:20px auto;
+    border-radius:8px;
     cursor:pointer;
-    margin:10px 0;
-    width:100%;
     transition:0.3s;
 }
 
-button:hover{
-    transform:scale(1.05);
+.envelope:before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ffd1dc;
+    clip-path:polygon(0 0,100% 0,50% 50%);
 }
 
-button.selected{
-    box-shadow:0 0 25px #ff2e63;
-    transform:scale(1.08);
+.shake{
+    animation:shake 0.4s;
 }
-    @keyframes fadeInRecap{
-    from{opacity:0;transform:scale(1.05);}
-    to{opacity:1;transform:scale(1);}
+
+@keyframes shake{
+    0%{transform:translateX(0)}
+    25%{transform:translateX(-5px)}
+    50%{transform:translateX(5px)}
+    75%{transform:translateX(-5px)}
+    100%{transform:translateX(0)}
+}
+
+.letter{
+    background:white;
+    color:black;
+    padding:20px;
+    border-radius:15px;
+    animation:fadeIn 1s forwards;
 }
 
 </style>
@@ -112,172 +150,88 @@ button.selected{
 
 <body>
 
-<!-- ORTADA SABİT BAR -->
-<div class="fixed-progress">
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="progress-heart" id="progressHeart">❤️</div>
+<audio id="music" src="wanna-be-yours.mp3" loop></audio>
+
+<div class="progress-wrapper">
+    <div class="progress">
+        <div class="progress-bar" id="bar"></div>
+        <div class="heart">💖</div>
+    </div>
 </div>
 
-<div class="card" id="mainCard">
-    <h1>Merve ❤️</h1>
-    <p>22 Ağustos 2025'ten beri hayatımın en güzel hikayesini yazıyoruz.</p>
-    <button onclick="startSurprise()">Sürprizi Aç 🎁</button>
+<div id="content" class="card">
+    <h2>Seninle bazı anları tekrar etmek istiyorum 💕</h2>
+    <button onclick="start()">Devam Et</button>
 </div>
-
-<audio id="bgMusic" loop>
-    <source src="wanna-be-yours.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-const music=document.getElementById("bgMusic");
-let musicStarted=false;
 
-function updateProgress(percent){
-    const bar=document.getElementById("progressBar");
-    const heart=document.getElementById("progressHeart");
+let step=0;
+let daysTogether = Math.floor((new Date() - new Date("2024-01-01")) / (1000*60*60*24));
+let envelopeClicks=0;
 
-    bar.style.width=percent+"%";
-    heart.style.left=percent+"%";
+function start(){
+    document.getElementById("music").play();
+    next();
+}
 
-    if(percent===100){
-        bar.classList.add("gold");
+function next(){
+    step++;
+    updateBar();
+
+    const content=document.getElementById("content");
+
+    if(step==1){
+        content.innerHTML=`
+        <h2>${daysTogether} gündür birlikteyiz 💖</h2>
+        <button onclick="next()">Devam</button>
+        `;
     }
-}
 
-function startSurprise(){
-    if(!musicStarted){
-        music.play().catch(()=>{});
-        musicStarted=true;
+    else if(step==2){
+        content.innerHTML=`
+        <h2>Bazı anılarımız 💕</h2>
+        <img src="foto1.jpg" class="photo">
+        `;
+        setTimeout(()=>{content.innerHTML+=`<img src="foto2.jpg" class="photo">`},2000);
+        setTimeout(()=>{content.innerHTML+=`<img src="foto3.jpg" class="photo">`},4000);
+        setTimeout(()=>{content.innerHTML+=`<button onclick="next()">Devam</button>`},6000);
     }
 
-    const card=document.getElementById("mainCard");
-    card.innerHTML=`
-        <p><b>Seninle bazı anları tekrar etmek istiyorum...</b></p>
-        <button onclick="question1()">Devam et</button>
-    `;
-    updateProgress(10);
-}
-
-function question1(){
-    const card=document.getElementById("mainCard");
-    card.innerHTML=`
-        <h2>Spotify evimiz? 🎵</h2>
-        <button onclick="answer1(this,1)">🕋 Kabe</button>
-        <button onclick="answer1(this,2)">🇹🇷 Anıtkabir</button>
-    `;
-    updateProgress(30);
-}
-
-function answer1(btn,choice){
-    btn.classList.add("selected");
-    if(choice===2){
-        setTimeout(()=>{
-            updateProgress(60);
-            question2();
-        },800);
+    else if(step==3){
+        content.innerHTML=`
+        <div class="envelope" id="env" onclick="openEnvelope()"></div>
+        <p>Zarfı açmak için tıkla 💌</p>
+        `;
     }
+
 }
 
-function question2(){
-    const card=document.getElementById("mainCard");
-    card.innerHTML=`
-        <h2>Tanışma sebebimiz?</h2>
-
-        <button onclick="answer2(this,1)">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png"
-                 width="18"
-                 style="vertical-align:middle;margin-right:6px;">
-            Discord
-        </button>
-
-        <button onclick="answer2(this,2)">
-            👩‍❤️‍👨 Couple PP
-        </button>
-    `;
-    updateProgress(60);
+function updateBar(){
+    document.getElementById("bar").style.width=(step*33)+"%";
 }
 
-function answer2(btn,choice){
-    btn.classList.add("selected");
-    if(choice===2){
-        setTimeout(()=>{
-            updateProgress(100);
-            finalScreen();
-        },800);
-    }
-}
+function openEnvelope(){
+    envelopeClicks++;
+    const env=document.getElementById("env");
 
-function finalScreen(){
-    updateProgress(100);
-
-    const card=document.getElementById("mainCard");
-    card.innerHTML=`
-        <h2>ZEKİ OLDUĞUNU BİLİYODUM SEVGİLİM 💖</h2>
-        <button onclick="showRecap()">Bir şey daha var...</button>
-    `;
-}
-function showRecap(){
-    document.body.innerHTML = `
-        <div id="recap" style="
-            height:100vh;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            text-align:center;
-            color:white;
-            font-family:sans-serif;
-            background:linear-gradient(45deg,#1DB954,#191414);
-            animation:fadeInRecap 1s ease;
-        ">
-            <h1 style="font-size:28px;margin-bottom:20px;">
-                Bizim Hikayemiz 🎵
-            </h1>
-
-            <h2 style="font-size:20px;margin-bottom:10px;">
-                22 Ağustos 2025'ten beri
-            </h2>
-
-            <div id="loveTimer" style="
-                font-size:32px;
-                font-weight:bold;
-                margin-top:20px;
-            ">
-            </div>
-
-            <p style="margin-top:20px;font-size:18px;">
-                birlikteyiz 💖
-            </p>
+    if(envelopeClicks<3){
+        env.classList.add("shake");
+        setTimeout(()=>env.classList.remove("shake"),400);
+    }else{
+        document.getElementById("content").innerHTML=`
+        <div class="letter">
+        Hayatımın en güzel tesadüfü sensin.  
+        Seninle geçen her günüm, kalbimin en güzel melodisi gibi.  
+        İyi ki varsın. İyi ki benimlesin. 💖  
+        Sonsuza kadar sen.
         </div>
-    `;
-
-    startLoveTimer();
-}
-function startLoveTimer(){
-    const startDate = new Date("2025-08-22T00:00:00");
-
-    function update(){
-        const now = new Date();
-        const diff = now - startDate;
-
-        const days = Math.floor(diff / (1000*60*60*24));
-        const hours = Math.floor((diff / (1000*60*60)) % 24);
-        const minutes = Math.floor((diff / (1000*60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        document.getElementById("loveTimer").innerHTML =
-            days + " gün " +
-            hours + " saat " +
-            minutes + " dakika " +
-            seconds + " saniye";
+        `;
+        document.getElementById("bar").style.width="100%";
     }
-
-    update();
-    setInterval(update,1000);
 }
 
 </script>
 
 </body>
 </html>
-
